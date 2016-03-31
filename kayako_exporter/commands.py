@@ -61,7 +61,6 @@ class MetricsHandler(BaseHTTPRequestHandler):
 @click.option('--url', help='HTTP URL for Kayako instance')
 @click.option('--login', help='Kayako username')
 @click.option('--password', help='Kayako password')
-@click.option('--p', help='Kayako password')
 @click.option('--department-id', multiple=True, help='Kayako department to monitor [default: all available]')
 @click.option('--verbose', is_flag=True)
 @click.option('--version', is_flag=True)
