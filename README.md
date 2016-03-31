@@ -1,1 +1,0 @@
-# kayako-exporter
