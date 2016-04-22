@@ -32,9 +32,10 @@ class KayakoCollector(object):
         tickets_count = get_tickes_count(self.base_url, session_id)
         support_tickets_total = GaugeMetricFamily(
             'support_tickets_total', 'Number of tickets', labels=['project', 'status'])
-        for _, data in tickets_count.iteritems():
-            if data['department_id'] in self.department_ids:
-                support_tickets_total.add_metric([data['department'], data['name']], data['count'])
+        for status_data in tickets_count:
+            if status_data['department_id'] in self.department_ids:
+                support_tickets_total.add_metric([
+                    status_data['department'], status_data['name']], status_data['count'])
         yield support_tickets_total
 
 

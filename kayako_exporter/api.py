@@ -38,11 +38,10 @@ def get_tickes_count(base_url, session_id):
     departments = {item['@id']: item['@title'] for item in response_dict['department']}
     statuses = {item['@id']: item['@title'] for item in response_dict['ticketstatus']}
     statuses['0'] = 'Total'
-    return {
-        item['@statusid']: {
+    for item in response_dict['ticketcount']:
+        yield {
             'name': statuses[item['@statusid']],
             'count': int(item['@ticketcount']),
             'department': departments[item['@departmentid']],
             'department_id': item['@departmentid'],
-        } for item in response_dict['ticketcount']
-    }
+        }
