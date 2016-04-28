@@ -19,6 +19,7 @@ class KayakoCollector(object):
         self.base_url = base_url
         self.login = login
         self.password = password
+        self.session_id = None
         if not department_ids:
             class AllDeps(object):
                 def __contains__(self, item):
@@ -28,8 +29,9 @@ class KayakoCollector(object):
 
     def collect(self):
         logger.debug('Polling...')
-        session_id = get_session_id(self.base_url, self.login, self.password)
-        tickets_count = get_tickes_count(self.base_url, session_id)
+        if not self.session_id:
+            self.session_id = get_session_id(self.base_url, self.login, self.password)
+        tickets_count = get_tickes_count(self.base_url, self.session_id)
         support_tickets_total = GaugeMetricFamily(
             'support_tickets_total', 'Number of tickets', labels=['project', 'status'])
         for status_data in tickets_count:
