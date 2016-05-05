@@ -35,7 +35,12 @@ def get_tickes_count(base_url, session_id):
                              {'sessionid': session_id, 'wantmacros': 0})
     response.raise_for_status()
     response_dict = xmltodict.parse(response.content, force_list=('department', 'ticketstatus',))['kayako_staffapi']
-    departments = {item['@id']: item['@title'] for item in response_dict['department']}
+    departments = {}
+    # nested departments
+    for item in response_dict['department']:
+        departments[item['@id']] = item['@title']
+        for d in item.get('department', []):
+            departments[d['@id']] = d['@title']
     statuses = {item['@id']: item['@title'] for item in response_dict['ticketstatus']}
     statuses['0'] = 'Total'
     for item in response_dict['ticketcount']:
