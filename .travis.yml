@@ -1,0 +1,16 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  - TRAVIS_COMMIT_SHORT=${TRAVIS_COMMIT::8}
+
+script:
+  - true
+
+deploy:
+  provider: script
+  script: make release-docker
+  on:
+    branch: master
