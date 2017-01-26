@@ -4,13 +4,14 @@ services:
   - docker
 
 env:
-  - TRAVIS_COMMIT_SHORT=${TRAVIS_COMMIT::8}
+  global:
+    - TRAVIS_COMMIT_SHORT=${TRAVIS_COMMIT::8}
 
 script:
   - true
 
 deploy:
   provider: script
-  script: make release-docker
+  script: make travis-build-docker
   on:
     branch: master
