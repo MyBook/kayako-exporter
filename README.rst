@@ -19,3 +19,10 @@ kayako exporter
       --version
       --help                Show this message and exit.
 
+
+
+Deploying with Docker
+---------------------
+::
+
+    docker run -d --env=KAYAKO_URL="https://kayako.example.com/" --env="KAYAKO_LOGIN=username" --env="KAYAKO_PASSWORD=secret" mybook/kayako-exporter
